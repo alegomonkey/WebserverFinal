@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const hbs = require('hbs');
 
-const PORT = 3015;
+const PORT = 3010;
 
 // app.use(express.static(('public')));
 
@@ -66,15 +66,18 @@ const users = []; // In-memory users array
 app.post('/register', (req, res) => {
     const { username, password } = req.body;
 
+    // require username and password to be filled
     if (!username || !password) {
         return res.render('register', { error: 'Username and password required.' });
     }
 
+    // check if username exists already
     const existingUser = users.find(u => u.username === username);
     if (existingUser) {
         return res.render('register', { error: 'Username already taken.' });
     }
 
+    // add user to array & redirect
     users.push({ username, password });
     console.log(`Registered new user: ${username}`);
     res.redirect('/login');
@@ -90,8 +93,10 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
+    // look in array for user/pass
     const user = users.find(u => u.username === username && u.password === password);
 
+    // if it exists set session information and "login" -> redirect
     if (user) {
         req.session.isLoggedIn = true;
         req.session.username = user.username;
@@ -106,7 +111,7 @@ app.post('/login', (req, res) => {
 });
 
 
-// Logout route - Add this new route
+// Logout route - destroy session & redirect
 app.post('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
