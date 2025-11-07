@@ -119,6 +119,7 @@ app.get('/profile', (req, res) => {
     }
     
     const user = {
+        isLoggedIn: true, // added for nav partial to show proper links
         name: req.session.username,
         loginTime: req.session.loginTime,
         visitCount: req.session.visitCount || 0
@@ -132,7 +133,12 @@ app.get('/profile', (req, res) => {
 const comments = []; // In-memory comment store
 
 app.get('/comments', (req, res) => {
-    res.render('comments', { comments });
+    // check if logged in to pass user to nav partial
+    const user = req.session.isLoggedIn
+        ? { name: req.session.username, isLoggedIn: true }
+        : { name: "Guest", isLoggedIn: false };
+
+    res.render('comments', { comments, user });
 });
 
 
@@ -157,7 +163,7 @@ app.post('/comment', (req, res) => {
         return res.render('new-comment', { error: 'Comment cannot be empty.' });
     }
 
-    // add the comment to in memory array "comments"
+    // add the comment to in memory array comments
     comments.push({
         author: req.session.username,
         text,
