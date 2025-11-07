@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Session middleware configuration - Add this block
 app.use(session({
-    secret: 'your-secret-key-change-this-in-production',
+    secret: '55309399289084092884298747', // Super secure key! If you are not a dev, stop peeking! >:(
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -50,6 +50,31 @@ app.get('/', (req, res) => {
     
     res.render('home', { user: user });
 });
+
+// Register Page
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+
+const users = []; // In-memory users array
+
+app.post('/register', (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.render('register', { error: 'Username and password required.' });
+    }
+
+    const existingUser = users.find(u => u.username === username);
+    if (existingUser) {
+        return res.render('register', { error: 'Username already taken.' });
+    }
+
+    users.push({ username, password });
+    console.log(`Registered new user: ${username}`);
+    res.redirect('/login');
+});
+
 
 // Login page
 app.get('/login', (req, res) => {
@@ -101,13 +126,24 @@ app.get('/profile', (req, res) => {
     res.render('profile', { user: user });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+
+// Comments page
+const comments = []; // In-memory comment store
+
+app.get('/comments', (req, res) => {
+    res.render('comments', { comments });
+});
+
+// New comments page, redirects to login if not logged in. 
+app.get('/comment/new', (req, res) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login');
+    }
+    res.render('new-comment');
 });
 
 
 
-// Start server
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on port ${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });

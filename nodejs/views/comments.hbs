@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comments</title>
+</head>
+<body>
+    <h1>All Comments</h1>
+    {{#if comments.length}}
+        <ul>
+            {{#each comments}}
+                <li><strong>{{author}}</strong>: {{text}} <em>({{timestamp}})</em></li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>No comments yet.</p>
+    {{/if}}
+
+    <p><a href="/comment/new">Add a Comment</a></p>
+    <p><a href="/">Back to Home</a></p>
+</body>
+</html>

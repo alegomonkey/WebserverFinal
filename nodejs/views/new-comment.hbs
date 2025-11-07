@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Comment</title>
+</head>
+<body>
+    <h1>Write a Comment</h1>
+    {{#if error}}
+        <p style="color:red">{{error}}</p>
+    {{/if}}
+    <form method="POST" action="/comment">
+        <label>Comment:</label><br>
+        <textarea name="text" rows="4" cols="50" required></textarea><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <p><a href="/comments">View All Comments</a></p>
+</body>
+</html>
