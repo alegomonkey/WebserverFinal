@@ -4,6 +4,8 @@
     <title>New Comment</title>
 </head>
 <body>
+    {{> nav user=user }}
+
     <h1>Write a Comment</h1>
     {{#if error}}
         <p style="color:red">{{error}}</p>

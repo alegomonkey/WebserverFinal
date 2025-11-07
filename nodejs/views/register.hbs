@@ -4,6 +4,8 @@
     <title>Register</title>
 </head>
 <body>
+    {{> nav user=user }}
+
     <h1>Register</h1>
     {{#if error}}
         <p style="color:red">{{error}}</p>

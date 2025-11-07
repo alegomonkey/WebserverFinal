@@ -11,6 +11,7 @@ const PORT = 3010;
 // Set view engine and views directory
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 // Middleware to parse form submits
 app.use(express.urlencoded({ extended: false }));
