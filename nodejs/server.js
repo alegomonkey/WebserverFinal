@@ -82,25 +82,25 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
-// Handle login form submission - now sets session data
+// handle login with in memory users array
 app.post('/login', (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    
-    // Simple authentication (in production, use proper password hashing)
-    if (username && password) {
-        // Set session data
+    const { username, password } = req.body;
+
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if (user) {
         req.session.isLoggedIn = true;
-        req.session.username = username;
+        req.session.username = user.username;
         req.session.loginTime = new Date().toISOString();
         req.session.visitCount = 0;
-        
+
         console.log(`User ${username} logged in at ${req.session.loginTime}`);
         res.redirect('/');
     } else {
-        res.redirect('/login?error=1');
+        res.render('login', { error: 'Invalid username or password.' });
     }
 });
+
 
 // Logout route - Add this new route
 app.post('/logout', (req, res) => {
@@ -135,6 +135,7 @@ app.get('/comments', (req, res) => {
     res.render('comments', { comments });
 });
 
+
 // New comments page, redirects to login if not logged in. 
 app.get('/comment/new', (req, res) => {
     if (!req.session.isLoggedIn) {
@@ -143,6 +144,28 @@ app.get('/comment/new', (req, res) => {
     res.render('new-comment');
 });
 
+// recieve and handle new comments 
+app.post('/comment', (req, res) => {
+    // ensure logged in
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login');
+    }
+
+    // check if there is text in the comment. 
+    const { text } = req.body;
+    if (!text) {
+        return res.render('new-comment', { error: 'Comment cannot be empty.' });
+    }
+
+    // add the comment to in memory array "comments"
+    comments.push({
+        author: req.session.username,
+        text,
+        timestamp: new Date().toISOString()
+    });
+
+    res.redirect('/comments');
+});
 
 
 app.listen(PORT, () => {
