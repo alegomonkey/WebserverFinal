@@ -1,0 +1,70 @@
+/* Global styles */
+body {
+    background-color: beige;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Line breaks */
+hr {
+    border: none;
+    border-top: 2px solid #227C70; /* cactus green */
+    margin: 20px 0;
+}
+
+/* Content box */
+.content-box {
+    background-color: #ADD8E6; /* light blue */
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Header and footer */
+header, footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: beige;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+/* Footer layout */
+footer {
+    border-top: 2px solid #227C70;
+    font-size: 0.9em;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #227C70;
+    border: 1px solid #227C70;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #227C70;
+    color: white;
+}
+
+/* Buttons (e.g., logout) */
+button {
+    background-color: #227C70;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #145C50;
+}

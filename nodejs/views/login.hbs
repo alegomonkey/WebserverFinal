@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login - Session Demo</title>
+    <title>Saloon Check In</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     {{> nav user=user }}
 
-    <h1>Login</h1>
-    
-    <form method="POST" action="/login">
-        <p>
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username" required>
-        </p>
+    <div class="content-box">
+        <h1>Check In at the Saloon</h1>
         
-        <p>
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" required>
-        </p>
+        <form method="POST" action="/login">
+            <p>
+                <label for="username">Badge Number:</label><br>
+                <input type="text" id="username" name="username" required>
+            </p>
+            
+            <p>
+                <label for="password">Lockbox Code:</label><br>
+                <input type="password" id="password" name="password" required>
+            </p>
+            
+            <p>
+                <button type="submit">Check In</button>
+                <a href="/">Cancel</a>
+            </p>
+        </form>
         
-        <p>
-            <button type="submit">Login</button>
-            <a href="/">Cancel</a>
-        </p>
-    </form>
-    
-    {{#if error}}
-    <p style="color: red;">Invalid username and password.</p>
-    {{/if}}
+        {{#if error}}
+        <p style="color: red;">Invalid Badge Number and Lockbox Code.</p>
+        {{/if}}
+    </div>
     {{> footer }}
 </body>
 </html>

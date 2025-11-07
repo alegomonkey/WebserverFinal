@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Comments</title>
+    <title>Town Gossip</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     {{> nav user=user }}
 
-    <h1>All Comments</h1>
-    {{#if comments.length}}
-        <ul>
-            {{#each comments}}
-                <li><strong>{{author}}</strong>: {{text}} <em>({{timestamp}})</em></li>
-            {{/each}}
-        </ul>
-    {{else}}
-        <p>No comments yet.</p>
-    {{/if}}
+    <div class="content-box">
+        <h1>All Town Gossip</h1>
+        {{#if comments.length}}
+            <ul>
+                {{#each comments}}
+                    <li><strong>{{author}}</strong>: {{text}} <em>({{timestamp}})</em></li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <p>Tumbleweeds Rollin’ Through.</p>
+        {{/if}}
 
-    <p><a href="/comment/new">Add a Comment</a></p>
-    <p><a href="/">Back to Home</a></p>
+        <p><a href="/comment/new">Add some Gossip</a></p>
+        <p><a href="/">Back to the Saloon</a></p>
+    </div>
     {{> footer }}
 </body>
 </html>

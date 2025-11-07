@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Profile - Session Demo</title>
+    <title>Wanted Poster</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     {{> nav user=user }}
 
-    <h1>User Profile</h1>
-    
-    <h2>Welcome, {{user.name}}!</h2>
-    <p><strong>Login Time:</strong> {{user.loginTime}}</p>
-    <p><strong>Visit Count:</strong> {{user.visitCount}}</p>
-    
-    <p>
-        <a href="/">Home</a> | 
-        <form method="POST" action="/logout" style="display: inline;">
-            <button type="submit">Logout</button>
-        </form>
-    </p>
+    <div class="content-box">
+        <h1>Wanted Poster</h1>
+        
+        <h2>Wanted: {{user.name}}!</h2>
+        <p><strong>Login Time:</strong> {{user.loginTime}}</p>
+        <p><strong>Visit Count:</strong> {{user.visitCount}}</p>
+        
+        <p>
+            <a href="/">Saloon</a> | 
+            <form method="POST" action="/logout" style="display: inline;">
+                <button type="submit">Hit the Trail</button>
+            </form>
+        </p>
+    </div>
     {{> footer }}
 </body>
 </html>

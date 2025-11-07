@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>New Comment</title>
+    <title>Town Gossip</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     {{> nav user=user }}
 
-    <h1>Write a Comment</h1>
-    {{#if error}}
-        <p style="color:red">{{error}}</p>
-    {{/if}}
-    <form method="POST" action="/comment">
-        <label>Comment:</label><br>
-        <textarea name="text" rows="4" cols="50" required></textarea><br><br>
-        <button type="submit">Submit</button>
-    </form>
-    <p><a href="/comments">View All Comments</a></p>
-
+    <div class="content-box">
+        <h1>Write some Town Gossip</h1>
+        {{#if error}}
+            <p style="color:red">{{error}}</p>
+        {{/if}}
+        <form method="POST" action="/comment">
+            <label>Gossip:</label><br>
+            <textarea name="text" rows="4" cols="50" required></textarea><br><br>
+            <button type="submit">Submit</button>
+        </form>
+        <p><a href="/comments">View All Town Gossip</a></p>
+    </div>
     {{> footer }}
 </body>
 </html>

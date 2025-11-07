@@ -13,6 +13,10 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
+// For css:
+app.use(express.static('public'));
+
+
 // Middleware to parse form submits
 app.use(express.urlencoded({ extended: false }));
 
@@ -147,7 +151,13 @@ app.get('/comment/new', (req, res) => {
     if (!req.session.isLoggedIn) {
         return res.redirect('/login');
     }
-    res.render('new-comment');
+
+    // check if logged in to pass user to nav partial
+    const user = req.session.isLoggedIn
+        ? { name: req.session.username, isLoggedIn: true }
+        : { name: "Guest", isLoggedIn: false };
+
+    res.render('new-comment', {user});
 });
 
 // recieve and handle new comments 
