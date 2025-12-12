@@ -137,3 +137,9 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Video File
+Sylvain_Midterm_VDemo.mp4
+
+# LETS ENCRYPT FOLDERS
+.letsencrypt/
