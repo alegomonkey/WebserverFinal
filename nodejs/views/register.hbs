@@ -23,8 +23,12 @@
             <p style="color:red">{{error}}</p>
         {{/if}}
         <form method="POST" action="/register">
-            <label>Badge Number:</label><br>
+            <label>Mailing addres:</label><br>
+            <input type="email" name="email" required><br><br>
+            <label>Badge Number (account username):</label><br>
             <input type="text" name="username" required><br><br>
+            <label>Badge Name (public username):</label><br>
+            <input type="text" name="display_name" required><br><br>
             <label>Lockbox Code:</label><br>
             <input type="password" name="password" required><br><br>
             <button type="submit">Sign</button>

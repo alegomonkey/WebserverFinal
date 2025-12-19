@@ -22,7 +22,8 @@ db.exec(`
         account_locked_until DATETIME,
         failed_login_attempts INTEGER DEFAULT 0,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        last_login DATETIME
     );
 
     CREATE TABLE IF NOT EXISTS sessions (

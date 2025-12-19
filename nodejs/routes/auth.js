@@ -21,10 +21,10 @@ router.get('/register', (req, res) => {
  */
 router.post('/register', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, username, display_name, password } = req.body;
 
-    if (!username || !password) {
-      return res.redirect('/register?error=' + encodeURIComponent('Username and password are required.'));
+    if (!username || !password || !email || !display_name) {
+      return res.redirect('/register?error=' + encodeURIComponent('Email, Username, Display Username and password are required.'));
     }
 
     const validation = validatePassword(password);
@@ -39,9 +39,19 @@ router.post('/register', async (req, res) => {
       return res.redirect('/register?error=' + encodeURIComponent('Username already exists.'));
     }
 
+    const existingDisplayName = db.prepare('SELECT display_name FROM users WHERE display_name = ?').get(display_name);
+    if (existingDisplayName) {
+      return res.redirect('/register?error=' + encodeURIComponent('Display Name already exists.'));
+    }
+
+    const existingEmail = db.prepare('SELECT email FROM users WHERE email = ?').get(email);
+    if (existingEmail) {
+      return res.redirect('/register?error=' + encodeURIComponent('Email in use.'));
+    }
+
     const passwordHash = await hashPassword(password);
 
-    db.prepare('INSERT INTO users (username, password_hash) VALUES (?, ?)').run(username, passwordHash);
+    db.prepare('INSERT INTO users (username, email, display_name, password_hash) VALUES (?, ?, ?, ?)').run(username, email, display_name, passwordHash);
 
     res.render('register-success', { username });
 
