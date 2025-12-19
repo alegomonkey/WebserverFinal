@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Town Square Chat</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    {{> nav user=user }}
+    <h1>Town Square Chat</h1>
+
+    <div id="status">Not connected</div>
+    <div id="messages"></div>
+
+    <form id="chatForm">
+        <input id="chatInput" type="text" placeholder="Type your message...">
+        <button type="submit">Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io(); // auto-connects to same host/port
+
+        socket.on('connect', () => {
+            document.getElementById('status').textContent = 'Connected!';
+        });
+
+        socket.on('connected', (data) => {
+            document.getElementById('status').textContent = data.message;
+        });
+
+        socket.on('message', (data) => {
+            const msgDiv = document.createElement('div');
+            msgDiv.textContent = `${data.username}: ${data.message}`;
+            document.getElementById('messages').appendChild(msgDiv);
+        });
+
+        document.getElementById('chatForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = document.getElementById('chatInput');
+            socket.emit('sendMessage', { message: input.value });
+            input.value = '';
+        });
+    </script>
+
+</body>
+</html>

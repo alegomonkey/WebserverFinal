@@ -10,7 +10,7 @@ router.get('/', requireAuth, (req, res) => {
     const userId = req.session.userId;
     
     try {
-        const user = db.prepare(`
+        const dbUser = db.prepare(`
             SELECT * FROM users WHERE id = ?
         `).get(userId);
 
@@ -20,6 +20,13 @@ router.get('/', requireAuth, (req, res) => {
             ORDER BY created_at DESC 
             LIMIT 10
         `).all(userId);
+
+        // add session info to user passed into profile for handlebars nav. 
+        const user = {
+            ...dbUser,                 
+            isLoggedIn: true,          
+            name: req.session.username,
+        };
         
         res.render('profile', {
             title: 'My Profile - Wild West Forum',
