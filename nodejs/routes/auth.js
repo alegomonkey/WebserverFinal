@@ -29,9 +29,7 @@ router.post('/register', async (req, res) => {
 
     const validation = validatePassword(password);
     if (!validation.valid) {
-      return res.redirect('/register?error=' +
-        encodeURIComponent('Password does not meet requirements: ' + validation.errors.join(', '))
-      );
+      return res.redirect('/register?error=' + encodeURIComponent('Password does not meet requirements: ' + validation.errors.join(', ')));
     }
 
     const existingUser = db.prepare('SELECT id FROM users WHERE username = ?').get(username);
@@ -125,9 +123,7 @@ router.post('/login', async (req, res) => {
           WHERE id = ?
         `).run(newAttempts, lockUntil, user.id);
 
-        return res.redirect('/login?error=' +
-          encodeURIComponent(`Too many failed attempts. Account locked for ${lockMinutes} minutes.`)
-        );
+        return res.redirect('/login?error=' + encodeURIComponent(`Too many failed attempts. Account locked for ${lockMinutes} minutes.`));
       }
 
       // update failed attempts

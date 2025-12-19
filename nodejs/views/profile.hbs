@@ -1,26 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Wanted Poster</title>
+    <title>{{title}}</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     {{> nav user=user }}
 
     <div class="content-box">
+
         <h1>Wanted Poster</h1>
-        
-        <h2>Wanted: {{user.name}}!</h2>
+
+        {{#if success}}
+            <div class="success-message">{{success}}</div>
+        {{/if}}
+
+        {{#if error}}
+            <div class="error-message">{{error}}</div>
+        {{/if}}
+
+        <h2>Wanted: {{user.display_name}} (aka {{user.username}})</h2>
+
+        <p><strong>Email:</strong> {{user.email}}</p>
         <p><strong>Login Time:</strong> {{user.loginTime}}</p>
         <p><strong>Visit Count:</strong> {{user.visitCount}}</p>
-        
+        <p><strong>Profile Color:</strong> <span style="color: {{user.profile_color}}">{{user.profile_color}}</span></p>
+        <p><strong>Bio:</strong> {{user.bio}}</p>
+
+        <hr>
+
+        <!-- Change Display Name -->
+        <h3>Change Display Name</h3>
+        <form method="POST" action="/profile/display-name">
+            <input type="text" name="displayName" placeholder="New display name" value="{{user.display_name}}" required>
+            <button type="submit">Update Display Name</button>
+        </form>
+
+        <hr>
+
+        <!-- Change Email -->
+        <h3>Change Email</h3>
+        <form method="POST" action="/profile/email">
+            <input type="password" name="currentPassword" placeholder="Current password" required>
+            <input type="email" name="newEmail" placeholder="New email" required>
+            <input type="email" name="confirmEmail" placeholder="Confirm new email" required>
+            <button type="submit">Update Email</button>
+        </form>
+
+        <hr>
+
+        <!-- Change Password -->
+        <h3>Change Password</h3>
+        <form method="POST" action="/profile/password">
+            <input type="password" name="currentPassword" placeholder="Current password" required>
+            <input type="password" name="newPassword" placeholder="New password" required>
+            <input type="password" name="confirmPassword" placeholder="Confirm new password" required>
+            <button type="submit">Update Password</button>
+        </form>
+
+        <hr>
+
+        <!-- Profile Customization -->
+        <h3>Customize Profile</h3>
+        <form method="POST" action="/profile/customization">
+            <label>Profile Color:</label>
+            <input type="color" name="nameColor" value="{{user.name_color}}">
+            <br>
+            <label>Bio:</label>
+            <textarea name="bio" rows="3">{{user.bio}}</textarea>
+
+            <button type="submit">Save Customizations</button>
+        </form>
+
+        <hr>
+
+        <!-- Recent Comments -->
+        <h3>Your Recent Comments</h3>
+        {{#if comments.length}}
+            <ul>
+                {{#each comments}}
+                    <li>
+                        <strong>{{this.created_at}}:</strong>
+                        {{this.text}}
+                    </li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <p>You haven't made any comments yet.</p>
+        {{/if}}
+
+        <hr>
+
         <p>
-            <a href="/">Saloon</a> | 
-            <form method="POST" action="/logout" style="display: inline;">
+            <a href="/">Saloon</a> |
+            <form method="POST" action="/logout" style="display:inline;">
                 <button type="submit">Hit the Trail</button>
             </form>
         </p>
+
     </div>
+
     {{> footer }}
 </body>
 </html>

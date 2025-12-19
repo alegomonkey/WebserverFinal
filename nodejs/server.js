@@ -1,11 +1,11 @@
 // server.js
 const express = require('express');
 const session = require('express-session');
-const SQLiteStore = require('./sqlite-session-store'); // From Chapter 10
+const SQLiteStore = require('./sqlite-session-store'); 
 const path = require('path');
 const hbs = require('hbs');
 const authRoutes = require('./routes/auth');
-const { requireAuth } = require('./modules/auth-middleware');
+const profileRoutes = require('./routes/profile');
 
 const app = express();
 const PORT = process.env.PORT || 3010;
@@ -25,7 +25,7 @@ hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 // Session configuration with SQLite store (from Chapter 10)
 const sessionStore = new SQLiteStore({
-  db: path.join(__dirname, 'sessions.db'),
+  db: path.join(__dirname, 'alm.db'),
   table: 'sessions'
 });
 
@@ -39,12 +39,6 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
-
-
-// Protected route example (doing this manually by sending)
-app.get('/api/protected', requireAuth, (req, res) => {
-  res.send(`Protected route that needs authentication. User: ${req.session.username} ID: ${req.session.userId}`);
-});
 
 app.get('/', (req, res) => {
     let user = {  // We keep the Guest object to act as a default if there is no session
@@ -72,6 +66,7 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/', authRoutes);
+app.use('/profile', profileRoutes);
 
 // Start server
 app.listen(PORT, () => {

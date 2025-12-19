@@ -17,7 +17,7 @@ db.exec(`
         email TEXT UNIQUE NOT NULL,
         display_name TEXT NOT NULL,
         password_hash TEXT NOT NULL,
-        profile_color TEXT DEFAULT '#02063fff',
+        name_color TEXT DEFAULT '#02063fff',
         bio TEXT DEFAULT '',
         account_locked_until DATETIME,
         failed_login_attempts INTEGER DEFAULT 0,
