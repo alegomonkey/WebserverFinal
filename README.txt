@@ -9,7 +9,7 @@ DataBase name: alm.db
 
 IN REPO IS VIDEO DEMOS: 
 MIDTERM: Sylvain_Midterm_VDemo.mp4
-FINAL: Sylvain_Final_VDemo.mp4
+FINAL: ZIPPED - Sylvain_Final_VDemo.mp4
 
 To run: clone repo: https://github.com/alegomonkey/WebserverFinal.git navigate into folder and execute:
 
@@ -69,6 +69,7 @@ Chat color for user name does not appear until reload
 Votes on comments do not dynamically update, they need a page refresh
 
 For some reason - beyond my understanding - live chat refresh no longer works - something to do with the git for /chat/history. It was working when running node server.js, but no longer on docker compose. Hair pulling....
+
 
 
 
