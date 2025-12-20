@@ -68,4 +68,7 @@ The login success page does not have every available link.
 Chat color for user name does not appear until reload
 Votes on comments do not dynamically update, they need a page refresh
 
+For some reason - beyond my understanding - live chat refresh no longer works - something to do with the git for /chat/history. It was working when running node server.js, but no longer on docker compose. Hair pulling....
+
+
 
